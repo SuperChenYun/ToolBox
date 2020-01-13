@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>电费计算 阶梯电价计算 峰谷电价计算</title>
+		<meta name="keyworks" content="电费计算,阶梯电费,峰谷电费,阶梯电费计算,峰谷电费计算,电费试算,算电费">
+		<meta name="description" content="为广大网名提供电费试算的工具,从而了解自己的用电量；电费计算,阶梯电费,峰谷电费,阶梯电费计算,峰谷电费计算,电费试算,算电费">
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		
+		<style>
+			.body-content form{overflow: hidden; margin: 2rem 0;}
+			.body-content .all-price{line-height: 2.0rem;}
+			.footer{line-height: 5rem;color:#555555}
+		</style>
+		
+	</head>
+	<body>
+		<div class="body-content container">
+			<ul class="nav nav-pills nav-fill">
+			  <li class="nav-item">
+				<a class="nav-link active" id="ladder-tab" data-toggle="tab" href="#ladder" role="tab" aria-controls="ladder" aria-selected="true">阶梯电价</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="peak-valley-tab" data-toggle="tab" href="#peak-valley" role="tab" aria-controls="peak-valley" aria-selected="true">峰谷电价</a>
+			  </li>
+			</ul>
+			
+			<div class="tab-content" id="">
+				<div class="tab-pane fade show active" id="ladder" role="tabpanel" aria-labelledby="ladder-tab">
+					<form action="#" id="ladder-form">
+						<div class="form-group">
+							<label for="basic-url">用电量: </label>
+							<div class="input-group mb-3">
+							  <input type="text" class="form-control" placeholder="" name="electricity-consumption">
+							  <div class="input-group-append">
+								<span class="input-group-text" id="basic-addon2">度</span>
+							  </div>
+							</div>
+						</div>
+						
+						<label>最高度数:</label>
+						
+						<div class="form-group row">
+							<div class="form-group col">
+								<label for="basic-url">第一阶梯: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder="" value="2160" name="one-step-quota">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">度</span>
+								  </div>
+								</div>
+							</div>
+							
+							<div class="form-group col">
+								<label for="basic-url">价格: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder="" value="0.52" name="one-step-price">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">元</span>
+								  </div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group  row">
+							<div class="form-group col">
+								<label for="basic-url">第二阶梯: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder="" value="3360" name="two-step-quota">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">度</span>
+								  </div>
+								</div>
+							</div>
+							
+							<div class="form-group col">
+								<label for="basic-url">价格: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder="" value="0.57" name="two-step-price">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">元</span>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="form-group col">
+							<label for="basic-url">第三阶梯: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder="" value="999999"  name="three-step-quota">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">度</span>
+								  </div>
+								</div>
+							</div>
+
+							<div class="form-group col">
+								<label for="basic-url">价格: </label>
+								<div class="input-group mb-3">
+								  <input type="text" class="form-control" placeholder=""  value="0.82"  name="three-step-price">
+								  <div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">元</span>
+								  </div>
+								</div>
+							</div>
+						</div>
+						
+						<button type="button" class="btn btn-primary float-right" onclick="calculationLadderPrice()">计算</button>
+						
+					</form>
+					
+					<div class="all-price">
+						<div class="row">
+							<div class="col">一阶段电费:</div>
+							<div class="col one-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">二阶段电费:</div>
+							<div class="col two-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">三阶段电费:</div>
+							<div class="col three-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">电费总计:</div>
+							<div class="col allprice text-right">0</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="tab-pane fade " id="peak-valley" role="tabpanel" aria-labelledby="peak-valley-tab">
+					<form action="#" id="peak-valley-form">
+						<div class="form-group">
+							<label for="basic-url">用电量: </label>
+							<div class="input-group mb-3">
+							  <input type="text" class="form-control" placeholder=""  name="electricity-consumption">
+							  <div class="input-group-append">
+								<span class="input-group-text" id="basic-addon2">度</span>
+							  </div>
+							</div>
+						</div>
+						
+						<label>最高度数:</label>
+						
+						<div class="form-group row">
+							<div class="col-xl-3">
+								<div class="form-group col">
+									<label for="basic-url">第一阶梯: </label>
+									<div class="input-group mb-3">
+									  <input type="text" class="form-control" placeholder="" value="2160"  name="one-step-quota">
+									  <div class="input-group-append">
+										<span class="input-group-text" id="basic-addon2">度</span>
+									  </div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-xl-9">
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">高峰价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.55" name="one-step-peak-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="one-step-peak-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">低谷价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.3" name="one-step-trough-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="one-step-trough-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">平段价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.52" name="one-step-flat-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="one-step-flat-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="form-group  row">
+							<div class="col-xl-3">
+								<div class="form-group col">
+									<label for="basic-url">第二阶梯: </label>
+									<div class="input-group mb-3">
+									  <input type="text" class="form-control" placeholder="" value="3360" name="two-step-quota">
+									  <div class="input-group-append">
+										<span class="input-group-text" id="basic-addon2">度</span>
+									  </div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-xl-9">
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">高峰价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.55"  name="two-step-peak-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8"  name="two-step-peak-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">低谷价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.3" name="two-step-trough-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="two-step-trough-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">平段价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.52" name="two-step-flat-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="two-step-flat-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-xl-3">
+								<div class="form-group col">
+									<label for="basic-url">第三阶梯: </label>
+									<div class="input-group mb-3">
+									  <input type="text" class="form-control" placeholder="" value="999999" name="three-step-quota">
+									  <div class="input-group-append">
+										<span class="input-group-text" id="basic-addon2">度</span>
+									  </div>
+									</div>
+								</div>
+							</div>
+					
+							<div class="col-xl-9">
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">高峰价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.55" name="three-step-peak-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="three-step-peak-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">低谷价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.3" name="three-step-trough-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="three-step-trough-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col">
+										<label for="basic-url">平段价格: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="0.52" name="three-step-flat-price">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">元</span>
+										  </div>
+										</div>
+									</div>
+									<div class="form-group col">
+										<label for="basic-url">使用时长: </label>
+										<div class="input-group mb-3">
+										  <input type="text" class="form-control" placeholder="" value="8" name="three-step-flat-time">
+										  <div class="input-group-append">
+											<span class="input-group-text" id="basic-addon2">时</span>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<button type="button" class="btn btn-primary float-right" onclick="calculationPeakValleyPrice()">计算</button>
+						
+					</form>
+					<div class="all-price">
+						<div class="row">
+							<div class="col">一阶段电费:</div>
+							<div class="col one-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">二阶段电费:</div>
+							<div class="col two-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">三阶段电费:</div>
+							<div class="col three-step-allprice text-right">0</div>
+						</div>
+						<div class="row">
+							<div class="col">电费总计:</div>
+							<div class="col allprice text-right">0</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-xl-12 text-center footer">
+			Copyright © By Itzcy.com. 2019 - <script> document.write((new Date()).getFullYear()) </script>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	<script>
+		/**
+		 * 计算峰谷电价
+		 */
+		function calculationPeakValleyPrice() {
+			console.log()
+			var totalElectricityConsumption = $('#peak-valley input[name=electricity-consumption]').val() // 总用电量
+			var oneStepQuota = $('#peak-valley input[name=one-step-quota]').val(); // 一阶梯额度
+			var twoStepQuota = $('#peak-valley input[name=two-step-quota]').val(); // 二阶梯额度
+			var threeStepQuota = $('#peak-valley input[name=three-step-quota]').val(); // 三阶梯额度
+
+			var oneStepPriceA = $('#peak-valley input[name=one-step-peak-price]').val(); // 一阶梯 峰价
+			var oneStepPriceB = $('#peak-valley input[name=one-step-trough-price]').val(); // 一阶梯 谷价
+			var oneStepPriceC = $('#peak-valley input[name=one-step-flat-price]').val(); // 一阶梯 平价
+
+			var oneStepTimeA = $('#peak-valley input[name=one-step-peak-time]').val(); // 一阶梯 峰价时长
+			var oneStepTimeB = $('#peak-valley input[name=one-step-trough-time]').val(); // 一阶梯 谷价时长
+			var oneStepTimeC = $('#peak-valley input[name=one-step-flat-time]').val(); // 一阶梯 平价时长
+
+			var twoStepPriceA = $('#peak-valley input[name=two-step-peak-price]').val(); // 二阶梯 峰价
+			var twoStepPriceB = $('#peak-valley input[name=two-step-trough-price]').val(); // 二阶梯 谷价
+			var twoStepPriceC = $('#peak-valley input[name=two-step-flat-price]').val(); // 二阶梯 平价
+
+			var twoStepTimeA = $('#peak-valley input[name=two-step-peak-time]').val(); // 二阶梯 峰价时长
+			var twoStepTimeB = $('#peak-valley input[name=two-step-trough-time]').val(); // 二阶梯 谷价时长
+			var twoStepTimeC = $('#peak-valley input[name=two-step-flat-time]').val(); // 二阶梯 平价时长
+
+			var threeStepPriceA = $('#peak-valley input[name=three-step-peak-price]').val(); // 三阶梯 峰价
+			var threeStepPriceB = $('#peak-valley input[name=three-step-trough-price]').val(); // 三阶梯 谷价
+			var threeStepPriceC = $('#peak-valley input[name=three-step-flat-price]').val(); // 三阶梯 平价
+
+			var threeStepTimeA = $('#peak-valley input[name=three-step-peak-time]').val(); // 三阶梯 峰价时长
+			var threeStepTimeB = $('#peak-valley input[name=three-step-trough-time]').val(); // 三阶梯 谷价时长
+			var threeStepTimeC = $('#peak-valley input[name=three-step-flat-time]').val(); // 三阶梯 平价时长
+
+			oneStepAllPrice = twoStepAllPrice = threeStepAllPrice = 0
+
+			// 一阶梯计算
+			// 算出一阶梯的电量
+			if (totalElectricityConsumption > oneStepQuota) {
+				useQuota = oneStepQuota
+			} else {
+				useQuota = totalElectricityConsumption
+			}
+			oneStepAllPrice = (useQuota * (oneStepTimeA / 24) * oneStepPriceA )+(useQuota * (oneStepTimeB / 24) * oneStepPriceB )+(useQuota * (oneStepTimeC / 24) * oneStepPriceC );
+				
+			// 二阶梯计算
+			if (totalElectricityConsumption > oneStepQuota) {
+				// 算出二阶梯的电量
+				if (totalElectricityConsumption > twoStepQuota) {
+					useQuota = twoStepQuota - oneStepQuota  // 算出二阶梯的最大用电量
+				} else {
+					useQuota = totalElectricityConsumption - oneStepQuota // 得减去一阶梯的
+				}
+				twoStepAllPrice = (useQuota * (twoStepTimeA / 24) * twoStepPriceA )+(useQuota * (twoStepTimeB / 24) * twoStepPriceB )+(useQuota * (twoStepTimeC / 24) * twoStepPriceC );
+				console.log(twoStepAllPrice);
+			}
+
+			// 三阶梯计算
+			if (totalElectricityConsumption > twoStepQuota) {
+				// 算出三阶梯的电量
+				if (totalElectricityConsumption > threeStepQuota) {
+					useQuota = totalElectricityConsumption - threeStepQuota  // 算出二阶梯的最大用电量
+				} else {
+					useQuota = totalElectricityConsumption - oneStepQuota // 得减去一阶梯的
+				}
+				threeStepAllPrice = (useQuota * (threeStepTimeA / 24) * threeStepPriceA )+(useQuota * (threeStepTimeB / 24) * threeStepPriceB )+(useQuota * (threeStepTimeC / 24) * threeStepPriceC );
+
+			}
+
+			$('#peak-valley .one-step-allprice').text("≈ ￥"+oneStepAllPrice.toFixed(2))
+			$('#peak-valley .two-step-allprice').text("≈ ￥"+twoStepAllPrice.toFixed(2))
+			$('#peak-valley .three-step-allprice').text("≈ ￥"+threeStepAllPrice.toFixed(2))
+			$('#peak-valley .allprice').text("≈ ￥"+ (oneStepAllPrice + twoStepAllPrice + threeStepAllPrice).toFixed(2))
+		}
+	</script>
+	
+	<script>
+		/**
+		 * 计算阶梯电价
+		 */
+		function calculationLadderPrice() {
+			var oneStepAllprice = 0;
+			var twoStepAllprice = 0;
+			var threeStepAllprice = 0;
+			
+			var oneStepQuota = $('#ladder-form input[name=one-step-quota]').val();
+			var twoStepQuota = $('#ladder-form input[name=two-step-quota]').val();
+			var threeStepQuota = $('#ladder-form input[name=three-step-quota]').val();
+			
+			var oneStepPrice = $('#ladder-form input[name=one-step-price]').val();
+			var twoStepPrice = $('#ladder-form input[name=two-step-price]').val();
+			var threeStepPrice = $('#ladder-form input[name=three-step-price]').val();
+			
+			var electricityConsumption = $('#ladder-form input[name=electricity-consumption]').val();
+			
+			
+			// 在一阶梯
+			oneStepUseQuota = electricityConsumption >= oneStepQuota 
+								? oneStepQuota 
+								: electricityConsumption;
+			oneStepAllprice = oneStepUseQuota * oneStepPrice;
+			
+			// 二阶梯
+			if((electricityConsumption - oneStepQuota) > 0) {
+				var  twoStepUseQuota = electricityConsumption >= twoStepQuota 
+										? twoStepQuota-oneStepQuota 
+										: electricityConsumption - oneStepQuota;
+				twoStepAllprice = twoStepUseQuota * twoStepPrice;
+			}
+			
+			// 三阶梯
+			if ((electricityConsumption - twoStepQuota) > 0) {
+				var  threeStepUseQuota = electricityConsumption >= threeStepQuota
+										? threeStepQuota-twoStepQuota 
+										: electricityConsumption - twoStepQuota;
+				threeStepAllprice = threeStepUseQuota * threeStepPrice;
+			}
+			
+			$('#ladder .one-step-allprice').text("￥"+oneStepAllprice)
+			$('#ladder .two-step-allprice').text("￥"+twoStepAllprice)
+			$('#ladder .three-step-allprice').text("￥"+threeStepAllprice)
+			$('#ladder .allprice').text("￥"+ (oneStepAllprice + twoStepAllprice + threeStepAllprice))
+		}
+	</script>
+</html>
