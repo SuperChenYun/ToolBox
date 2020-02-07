@@ -425,34 +425,34 @@
 		 */
 		function calculationPeakValleyPrice() {
 			console.log()
-			var totalElectricityConsumption = $('#peak-valley input[name=electricity-consumption]').val() // 总用电量
-			var oneStepQuota = $('#peak-valley input[name=one-step-quota]').val(); // 一阶梯额度
-			var twoStepQuota = $('#peak-valley input[name=two-step-quota]').val(); // 二阶梯额度
-			var threeStepQuota = $('#peak-valley input[name=three-step-quota]').val(); // 三阶梯额度
+			var totalElectricityConsumption = parseFloat($('#peak-valley input[name=electricity-consumption]').val()) // 总用电量
+			var oneStepQuota = parseFloat($('#peak-valley input[name=one-step-quota]').val()); // 一阶梯额度
+			var twoStepQuota = parseFloat($('#peak-valley input[name=two-step-quota]').val()); // 二阶梯额度
+			var threeStepQuota = parseFloat($('#peak-valley input[name=three-step-quota]').val()); // 三阶梯额度
 
-			var oneStepPriceA = $('#peak-valley input[name=one-step-peak-price]').val(); // 一阶梯 峰价
-			var oneStepPriceB = $('#peak-valley input[name=one-step-trough-price]').val(); // 一阶梯 谷价
-			var oneStepPriceC = $('#peak-valley input[name=one-step-flat-price]').val(); // 一阶梯 平价
+			var oneStepPriceA = parseFloat($('#peak-valley input[name=one-step-peak-price]').val()); // 一阶梯 峰价
+			var oneStepPriceB = parseFloat($('#peak-valley input[name=one-step-trough-price]').val()); // 一阶梯 谷价
+			var oneStepPriceC = parseFloat($('#peak-valley input[name=one-step-flat-price]').val()); // 一阶梯 平价
 
-			var oneStepTimeA = $('#peak-valley input[name=one-step-peak-time]').val(); // 一阶梯 峰价时长
-			var oneStepTimeB = $('#peak-valley input[name=one-step-trough-time]').val(); // 一阶梯 谷价时长
-			var oneStepTimeC = $('#peak-valley input[name=one-step-flat-time]').val(); // 一阶梯 平价时长
+			var oneStepTimeA = parseFloat($('#peak-valley input[name=one-step-peak-time]').val()); // 一阶梯 峰价时长
+			var oneStepTimeB = parseFloat($('#peak-valley input[name=one-step-trough-time]').val()); // 一阶梯 谷价时长
+			var oneStepTimeC = parseFloat($('#peak-valley input[name=one-step-flat-time]').val()); // 一阶梯 平价时长
 
-			var twoStepPriceA = $('#peak-valley input[name=two-step-peak-price]').val(); // 二阶梯 峰价
-			var twoStepPriceB = $('#peak-valley input[name=two-step-trough-price]').val(); // 二阶梯 谷价
-			var twoStepPriceC = $('#peak-valley input[name=two-step-flat-price]').val(); // 二阶梯 平价
+			var twoStepPriceA = parseFloat($('#peak-valley input[name=two-step-peak-price]').val()); // 二阶梯 峰价
+			var twoStepPriceB = parseFloat($('#peak-valley input[name=two-step-trough-price]').val()); // 二阶梯 谷价
+			var twoStepPriceC = parseFloat($('#peak-valley input[name=two-step-flat-price]').val()); // 二阶梯 平价
 
-			var twoStepTimeA = $('#peak-valley input[name=two-step-peak-time]').val(); // 二阶梯 峰价时长
-			var twoStepTimeB = $('#peak-valley input[name=two-step-trough-time]').val(); // 二阶梯 谷价时长
-			var twoStepTimeC = $('#peak-valley input[name=two-step-flat-time]').val(); // 二阶梯 平价时长
+			var twoStepTimeA = parseFloat($('#peak-valley input[name=two-step-peak-time]').val()); // 二阶梯 峰价时长
+			var twoStepTimeB = parseFloat($('#peak-valley input[name=two-step-trough-time]').val()); // 二阶梯 谷价时长
+			var twoStepTimeC = parseFloat($('#peak-valley input[name=two-step-flat-time]').val()); // 二阶梯 平价时长
 
-			var threeStepPriceA = $('#peak-valley input[name=three-step-peak-price]').val(); // 三阶梯 峰价
-			var threeStepPriceB = $('#peak-valley input[name=three-step-trough-price]').val(); // 三阶梯 谷价
-			var threeStepPriceC = $('#peak-valley input[name=three-step-flat-price]').val(); // 三阶梯 平价
+			var threeStepPriceA = parseFloat($('#peak-valley input[name=three-step-peak-price]').val()); // 三阶梯 峰价
+			var threeStepPriceB = parseFloat($('#peak-valley input[name=three-step-trough-price]').val()); // 三阶梯 谷价
+			var threeStepPriceC = parseFloat($('#peak-valley input[name=three-step-flat-price]').val()); // 三阶梯 平价
 
-			var threeStepTimeA = $('#peak-valley input[name=three-step-peak-time]').val(); // 三阶梯 峰价时长
-			var threeStepTimeB = $('#peak-valley input[name=three-step-trough-time]').val(); // 三阶梯 谷价时长
-			var threeStepTimeC = $('#peak-valley input[name=three-step-flat-time]').val(); // 三阶梯 平价时长
+			var threeStepTimeA = parseFloat($('#peak-valley input[name=three-step-peak-time]').val()); // 三阶梯 峰价时长
+			var threeStepTimeB = parseFloat($('#peak-valley input[name=three-step-trough-time]').val()); // 三阶梯 谷价时长
+			var threeStepTimeC = parseFloat($('#peak-valley input[name=three-step-flat-time]').val()); // 三阶梯 平价时长
 
 			oneStepAllPrice = twoStepAllPrice = threeStepAllPrice = 0
 
@@ -505,21 +505,24 @@
 			var twoStepAllprice = 0;
 			var threeStepAllprice = 0;
 			
-			var oneStepQuota = $('#ladder-form input[name=one-step-quota]').val();
-			var twoStepQuota = $('#ladder-form input[name=two-step-quota]').val();
-			var threeStepQuota = $('#ladder-form input[name=three-step-quota]').val();
+			var oneStepQuota = parseFloat($('#ladder-form input[name=one-step-quota]').val());
+			var twoStepQuota = parseFloat($('#ladder-form input[name=two-step-quota]').val());
+			var threeStepQuota = parseFloat($('#ladder-form input[name=three-step-quota]').val());
 			
-			var oneStepPrice = $('#ladder-form input[name=one-step-price]').val();
-			var twoStepPrice = $('#ladder-form input[name=two-step-price]').val();
-			var threeStepPrice = $('#ladder-form input[name=three-step-price]').val();
+			var oneStepPrice = parseFloat($('#ladder-form input[name=one-step-price]').val());
+			var twoStepPrice = parseFloat($('#ladder-form input[name=two-step-price]').val());
+			var threeStepPrice = parseFloat($('#ladder-form input[name=three-step-price]').val());
 			
-			var electricityConsumption = $('#ladder-form input[name=electricity-consumption]').val();
+			var electricityConsumption = parseFloat($('#ladder-form input[name=electricity-consumption]').val());
 			
 			
 			// 在一阶梯
-			oneStepUseQuota = electricityConsumption >= oneStepQuota 
-								? oneStepQuota 
-								: electricityConsumption;
+			if (electricityConsumption >= oneStepQuota) {
+				oneStepUseQuota = oneStepQuota;
+			} else {
+				oneStepUseQuota = electricityConsumption
+			}
+
 			oneStepAllprice = oneStepUseQuota * oneStepPrice;
 			
 			// 二阶梯
