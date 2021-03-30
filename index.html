@@ -476,9 +476,6 @@
 
 			todayElectricityConsumption()
 
-
-
-			console.log()
 			var totalElectricityConsumption = parseFloat($('#peak-valley input[name=electricity-consumption]').val()) // 总用电量
 			var oneStepQuota = parseFloat($('#peak-valley input[name=one-step-quota]').val()); // 一阶梯额度
 			var twoStepQuota = parseFloat($('#peak-valley input[name=two-step-quota]').val()); // 二阶梯额度
@@ -528,7 +525,6 @@
 					useQuota = totalElectricityConsumption - oneStepQuota // 得减去一阶梯的
 				}
 				twoStepAllPrice = (useQuota * (twoStepTimeA / 24) * twoStepPriceA )+(useQuota * (twoStepTimeB / 24) * twoStepPriceB )+(useQuota * (twoStepTimeC / 24) * twoStepPriceC );
-				console.log(twoStepAllPrice);
 			}
 
 			// 三阶梯计算
@@ -549,7 +545,6 @@
 			$('#peak-valley .allprice').text("≈ ￥"+ (oneStepAllPrice + twoStepAllPrice + threeStepAllPrice).toFixed(2))
 		}
 	</script>
-	
 	<script>
 		/**
 		 * 计算阶梯电价
