@@ -18,6 +18,39 @@
 	</head>
 	<body>
 		<div class="body-content container">
+
+			<div class="form-group row">
+				<div class="form-group col">
+					<label for="basic-url">电功率: </label>
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="" value="" name="watt">
+					  <div class="input-group-append">
+						<span class="input-group-text" >瓦特</span>
+					  </div>
+					</div>
+				</div>
+				
+				<div class="form-group col">
+					<label for="basic-url">每天使用时长(小时): </label>
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="" value="24" name="today-hour">
+					  <div class="input-group-append">
+						<span class="input-group-text">小时</span>
+					  </div>
+					</div>
+				</div>
+
+				<div class="form-group col">
+					<label for="basic-url">使用天数： </label>
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="" value="30" name="day-num">
+					  <div class="input-group-append">
+						<span class="input-group-text" >天</span>
+					  </div>
+					</div>
+				</div>
+			</div>
+
 			<ul class="nav nav-pills nav-fill">
 			  <li class="nav-item">
 				<a class="nav-link active" id="ladder-tab" data-toggle="tab" href="#ladder" role="tab" aria-controls="ladder" aria-selected="true">阶梯电价</a>
@@ -420,10 +453,31 @@
 	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	
 	<script>
+		function todayElectricityConsumption() {
+			var watt = $('input[name=watt]').val()
+			var todayHour = $('input[name=today-hour]').val()
+			var dayNum = $('input[name=day-num]').val()
+
+			var degrees = watt / 1000
+			
+
+			var ec = degrees * todayHour * dayNum
+
+			$('input[name=electricity-consumption]').val(ec.toFixed(2))
+
+		}
+	</script>
+
+	<script>
 		/**
 		 * 计算峰谷电价
 		 */
 		function calculationPeakValleyPrice() {
+
+			todayElectricityConsumption()
+
+
+
 			console.log()
 			var totalElectricityConsumption = parseFloat($('#peak-valley input[name=electricity-consumption]').val()) // 总用电量
 			var oneStepQuota = parseFloat($('#peak-valley input[name=one-step-quota]').val()); // 一阶梯额度
@@ -501,6 +555,8 @@
 		 * 计算阶梯电价
 		 */
 		function calculationLadderPrice() {
+			todayElectricityConsumption()
+			
 			var oneStepAllprice = 0;
 			var twoStepAllprice = 0;
 			var threeStepAllprice = 0;
@@ -541,10 +597,10 @@
 				threeStepAllprice = threeStepUseQuota * threeStepPrice;
 			}
 			
-			$('#ladder .one-step-allprice').text("￥"+oneStepAllprice)
-			$('#ladder .two-step-allprice').text("￥"+twoStepAllprice)
-			$('#ladder .three-step-allprice').text("￥"+threeStepAllprice)
-			$('#ladder .allprice').text("￥"+ (oneStepAllprice + twoStepAllprice + threeStepAllprice))
+			$('#ladder .one-step-allprice').text("￥"+oneStepAllprice.toFixed(2))
+			$('#ladder .two-step-allprice').text("￥"+twoStepAllprice.toFixed(2))
+			$('#ladder .three-step-allprice').text("￥"+threeStepAllprice.toFixed(2))
+			$('#ladder .allprice').text("￥"+ (oneStepAllprice + twoStepAllprice + threeStepAllprice).toFixed(2))
 		}
 	</script>
 </html>
